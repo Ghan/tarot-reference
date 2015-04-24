@@ -1,4 +1,8 @@
+var Parse = require('parse').Parse;
 var React = require('react-native');
+var ParseReact = require('parse-react');
+var api = require('../Utils/api');
+var CardInfo = require('./CardInfo');
 
 var {
   View,
@@ -54,6 +58,12 @@ var styles = StyleSheet.create({
 });
 
 class Main extends React.Component{
+  // observe(props, state) {
+  //   return {
+  //     items: (new Parse.Query('Card')).ascending('createdAt')
+  //   };
+  // }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -74,12 +84,36 @@ class Main extends React.Component{
     this.setState({
       isLoading: true
     });
-    console.log("SUBMIT", this.state.card);
     // fetch data from external source
+    api.getBio(this.state.card)
+      .then((res) => {
+        if (res.message === 'Not Found') {
+          this.setState({
+            error: "User not found",
+            isLoading: "false"
+          });
+        } else {
+          this.props.navigator.push({
+            title: res.name || "Select an Option",
+            component: CardInfo,
+            passProps: {userInfo: res}
+          });
+
+          this.setState({
+            isLoading: false,
+            error: false,
+            username: ''
+          });
+        }
+       });
     // reroute to the next passing the card name
   }
 
   render() {
+    var showErr = (
+      this.state.error ? <Text> Error! </Text> : <View></View>
+    );
+
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.title}>Search for a Tarot card</Text>
@@ -93,6 +127,11 @@ class Main extends React.Component{
           underlayColor="white">
             <Text style={styles.buttonText}> SEARCH </Text>
         </TouchableHighlight>
+        <ActivityIndicatorIOS
+          animating={this.state.isLoading}
+          color="#111111"
+          size="large"></ActivityIndicatorIOS>
+        {showErr}
       </View>
     )
   }
