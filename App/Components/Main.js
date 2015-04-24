@@ -2,6 +2,7 @@ var Parse = require('parse').Parse;
 var React = require('react-native');
 var ParseReact = require('parse-react');
 var api = require('../Utils/api');
+
 var CardInfo = require('./CardInfo');
 
 var {
@@ -58,18 +59,15 @@ var styles = StyleSheet.create({
 });
 
 class Main extends React.Component{
-  // observe(props, state) {
-  //   return {
-  //     items: (new Parse.Query('Card')).ascending('createdAt')
-  //   };
-  // }
 
   constructor(props) {
     super(props);
+    console.log("yo");
     this.state = {
       card: '',
       isLoading: false,
-      error: false
+      error: false,
+      cards: (new Parse.Query('Card'))
     }
   }
 
@@ -114,6 +112,8 @@ class Main extends React.Component{
       this.state.error ? <Text> Error! </Text> : <View></View>
     );
 
+    console.log(this.state.cards);
+
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.title}>Search for a Tarot card</Text>
@@ -136,5 +136,7 @@ class Main extends React.Component{
     )
   }
 };
+
+Main.mixins = [ParseReact.Mixin];
 
 module.exports = Main;
