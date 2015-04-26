@@ -73,6 +73,25 @@ var Main2 = React.createClass({
     var self = this,
         showErr = "YES";
 
+    function filterCardsBy(suit) {
+      return (this.hasOwnProperty('data')) ?
+              this.data.cards.filter((i) => {
+                console.log(i);
+                return i.suit === suit;
+              }) :
+              [];
+    }
+
+    var cardsBySuit = {
+      major: filterCardsBy('major'),
+      cups: filterCardsBy('cups'),
+      swords: filterCardsBy('swords'),
+      wands: filterCardsBy('wands'),
+      pentacles: filterCardsBy('pentacles'),
+    };
+
+    console.log(cardsBySuit);
+
     return (
       <View style={styles.mainContainer}>
         {this.data.cards.map(function(i) {

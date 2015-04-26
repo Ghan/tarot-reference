@@ -3,7 +3,7 @@ var React = require('react-native');
 var ParseReact = require('parse-react');
 var api = require('../Utils/api');
 
-var CardInfo = require('./CardInfo');
+var SuitList = require('./SuitList');
 
 var {
   View,
@@ -64,10 +64,8 @@ class Main extends React.Component{
     super(props);
     console.log("yo");
     this.state = {
-      card: '',
       isLoading: false,
       error: false,
-      cards: (new Parse.Query('Card'))
     }
   }
 
@@ -77,24 +75,26 @@ class Main extends React.Component{
     });
   }
 
-  handleSubmit() {
+  handleSubmit(suit) {
     // update our indicatorIOS spinner
     this.setState({
       isLoading: true
     });
     // fetch data from external source
-    api.getBio(this.state.card)
+    api.getCardsBySuit(suit)
       .then((res) => {
         if (res.message === 'Not Found') {
           this.setState({
-            error: "User not found",
+            error: "Suit not found",
             isLoading: "false"
           });
         } else {
+          console.log(res);
+          
           this.props.navigator.push({
-            title: res.name || "Select an Option",
-            component: CardInfo,
-            passProps: {userInfo: res}
+            title: suit || "Select an Option",
+            component: SuitList,
+            passProps: {data: res}
           });
 
           this.setState({
@@ -112,21 +112,22 @@ class Main extends React.Component{
       this.state.error ? <Text> Error! </Text> : <View></View>
     );
 
-    console.log(this.state.cards);
+    var suits = ['major', 'cups', 'swords', 'wands', 'pentacles'];
+
+    var list = suits.map((item, index) => {
+      return (
+        <TouchableHighlight
+          style={styles.button}
+          onPress={ () => {this.handleSubmit(item)} }
+          underlayColor="white">
+          <Text style={styles.buttonText}>{item}</Text>
+        </TouchableHighlight>
+      )
+    });
 
     return (
       <View style={styles.mainContainer}>
-        <Text style={styles.title}>Search for a Tarot card</Text>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.card} 
-          onChange={this.handleChange.bind(this)} />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
-          underlayColor="white">
-            <Text style={styles.buttonText}> SEARCH </Text>
-        </TouchableHighlight>
+        {list}
         <ActivityIndicatorIOS
           animating={this.state.isLoading}
           color="#111111"

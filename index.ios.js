@@ -1,5 +1,5 @@
 var React = require('react-native');
-var Main = require('./App/Components/Main2');
+var Main = require('./App/Components/Main');
 var Parse = require('parse').Parse;
 
 // Insert your app's keys here:
