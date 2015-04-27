@@ -56,7 +56,7 @@ class SuitList extends React.Component{
           style={styles.listItem}
           onPress={ () => {this.visitCard(item)} }
           underlayColor="white">
-          <Text style={styles.listText}>{item.attributes.full_name}</Text>
+          <Text style={styles.listText}>{item.full_name}</Text>
         </TouchableHighlight>
         
       )

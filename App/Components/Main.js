@@ -62,11 +62,26 @@ class Main extends React.Component{
 
   constructor(props) {
     super(props);
-    console.log("yo");
     this.state = {
       isLoading: false,
       error: false,
     }
+  }
+
+  componentDidMount() {
+    var self = this;
+
+    self.setState({
+      isLoading: true
+    });
+
+    api.getAllCards().then((success) => {
+      if (success) {
+        self.setState({
+          isLoading: false
+        });
+      }
+    });
   }
 
   handleChange(event) {

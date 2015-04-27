@@ -6,6 +6,7 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
+    "lodash": "^3.7.0",
     "parse": "^1.4.2",
     "parse-react": "^0.1.4",
     "react-native": "^0.4.0"
