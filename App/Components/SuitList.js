@@ -1,37 +1,64 @@
 var React = require('react-native');
 
+var CardInfo = require('./CardInfo');
+
 var {
   View,
   Text,
   StyleSheet,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } = React;
 
 var styles = StyleSheet.create({
   container: {
     marginTop: 65,
     flex: 1,
-    backgroundColor: 'red'
+    backgroundColor: '#48BBEC'
   },
   image: {
     height: 350,
   },
-  buttonText: {
-    fontSize: 24,
-    color: 'white',
+  listItem: {
+    height: 45,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 0,
+    marginBottom: 0,
+    marginTop: 0,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  listText: {
+    fontSize: 18,
+    color: '#111',
     alignSelf: 'center'
   }
 });
 
 class SuitList extends React.Component{
 
-  render() {
+  visitCard(item) {
+    this.props.navigator.push({
+      title: item.attributes.full_name || "Card",
+      component: CardInfo,
+      passProps: {card: item}
+    });
+  }
 
-    console.log(this.props);
+  render() {
     var list = this.props.data.map((item, index) => {
       return (
-        <Text style={styles.buttonText}>{item.attributes.full_name}</Text>
+        <TouchableHighlight
+          style={styles.listItem}
+          onPress={ () => {this.visitCard(item)} }
+          underlayColor="white">
+          <Text style={styles.listText}>{item.attributes.full_name}</Text>
+        </TouchableHighlight>
+        
       )
     });
 

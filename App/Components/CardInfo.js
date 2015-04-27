@@ -10,9 +10,9 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 65,
+    marginTop: 25,
     flex: 1,
-    backgroundColor: 'red'
+    backgroundColor: '#48BBEC'
   },
   image: {
     height: 350,
@@ -28,18 +28,15 @@ class CardInfo extends React.Component{
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Image
-          source={{uri: this.props.userInfo.avatar_url}}
-          style={styles.image} />
         <Text>This is the Card Info </Text>
-        <Text>{this.props.userInfo} </Text>
+        <Text>{this.props.card} </Text>
       </ScrollView>
     )
   }
 };
 
 CardInfo.propTypes = {
-  userInfo: React.PropTypes.object.isRequired
+  card: React.PropTypes.object.isRequired
 }
 
 module.exports = CardInfo;

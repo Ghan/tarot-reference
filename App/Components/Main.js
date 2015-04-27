@@ -89,10 +89,11 @@ class Main extends React.Component{
             isLoading: "false"
           });
         } else {
-          console.log(res);
+          var formattedSuit = suit.charAt(0).toUpperCase() + 
+                              suit.slice(1);
           
           this.props.navigator.push({
-            title: suit || "Select an Option",
+            title: formattedSuit || "Suit",
             component: SuitList,
             passProps: {data: res}
           });
@@ -113,6 +114,7 @@ class Main extends React.Component{
     );
 
     var suits = ['major', 'cups', 'swords', 'wands', 'pentacles'];
+    var formattedSuits = ['Major Arcana', 'Cups', 'Swords', 'Wands', 'Pentacles'];
 
     var list = suits.map((item, index) => {
       return (
@@ -120,7 +122,7 @@ class Main extends React.Component{
           style={styles.button}
           onPress={ () => {this.handleSubmit(item)} }
           underlayColor="white">
-          <Text style={styles.buttonText}>{item}</Text>
+          <Text style={styles.buttonText}>{formattedSuits[index]}</Text>
         </TouchableHighlight>
       )
     });

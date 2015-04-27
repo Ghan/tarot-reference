@@ -8,12 +8,7 @@ var api = {
     query.equalTo("suit", suit);
     console.log("getting ", suit);
     return query.find();
-  },
-  getBio(username){
-    username = username.toLowerCase().trim();
-    var url = `https://api.github.com/users/${username}`;
-    return fetch(url).then((res) => res.json());
-  },
+  }
 };
 
 module.exports = api;
