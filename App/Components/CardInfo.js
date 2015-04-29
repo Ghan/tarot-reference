@@ -15,11 +15,23 @@ var styles = StyleSheet.create({
     backgroundColor: '#48BBEC'
   },
   image: {
-    height: 350,
+    alignSelf: 'center',
+    width: 250,
+    height: 500
   },
   buttonText: {
     fontSize: 24,
     color: 'white',
+    alignSelf: 'center'
+  },
+  header: {
+    fontSize: 18,
+    color: '#111',
+    alignSelf: 'center'
+  },
+  description: {
+    fontSize: 14,
+    color: '#111',
     alignSelf: 'center'
   }
 });
@@ -28,8 +40,13 @@ class CardInfo extends React.Component{
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>This is the Card Info </Text>
-        <Text>{this.props.card} </Text>
+        <Image
+          style={styles.image}
+          source={{uri: this.props.card.image.url()}}/>
+        <Text
+          style={styles.header}>{this.props.card.full_name}</Text>
+        <Text
+          style={styles.description}>{this.props.card.description} </Text>
       </ScrollView>
     )
   }

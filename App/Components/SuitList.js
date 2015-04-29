@@ -43,7 +43,7 @@ class SuitList extends React.Component{
 
   visitCard(item) {
     this.props.navigator.push({
-      title: item.attributes.full_name || "Card",
+      title: item.full_name || "Card",
       component: CardInfo,
       passProps: {card: item}
     });
