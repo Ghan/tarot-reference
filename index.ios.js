@@ -26,7 +26,7 @@ class tarotReference extends React.Component {
       <NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: "Tarot Reference",
+          title: "Tarology",
           component: Main
         }} />
     );

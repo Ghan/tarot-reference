@@ -13,9 +13,9 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 65,
+    marginTop: 0,
     flex: 1,
-    backgroundColor: '#48BBEC'
+    backgroundColor: '#333'
   },
   image: {
     height: 350,
@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
     height: 45,
     flexDirection: 'row',
     backgroundColor: 'white',
-    borderColor: '#48BBEC',
+    borderColor: '#333',
     borderWidth: 1,
     borderRadius: 0,
     marginBottom: 0,
@@ -50,7 +50,10 @@ class SuitList extends React.Component{
   }
 
   render() {
-    var list = this.props.data.map((item, index) => {
+    var cards = this.props.data.sort(function (a, b) {
+      return parseInt(a.order) > parseInt(b.order);
+    });
+    var list = cards.map((item, index) => {
       return (
         <TouchableHighlight
           style={styles.listItem}

@@ -1,18 +1,22 @@
 var React = require('react-native');
+var Web_View = require('./Helpers/WebView')
 
 var {
   View,
   Text,
   StyleSheet,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } = React;
 
 var styles = StyleSheet.create({
   container: {
     marginTop: 25,
+    paddingLeft: 10,
+    paddingRight: 10,
     flex: 1,
-    backgroundColor: '#48BBEC'
+    backgroundColor: '#333'
   },
   image: {
     alignSelf: 'center',
@@ -20,14 +24,23 @@ var styles = StyleSheet.create({
     height: 500
   },
   header: {
-    fontSize: 18,
-    color: '#111',
+    fontSize: 24,
+    color: '#FFF',
     alignSelf: 'center'
   },
   description: {
-    fontSize: 14,
-    color: '#111',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontSize: 18,
+    color: '#FFF',
+    alignSelf: 'center',
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  external: {
+    fontSize: 18,
+    alignSelf: 'center',
+    color: "#FFF",
+    fontStyle: 'italic'
   },
   buttonText: {
     fontSize: 18,
@@ -53,7 +66,7 @@ class CardInfo extends React.Component{
   openPage(url, label){
     this.props.navigator.push({
       component: Web_View,
-      title: {label},
+      title: label,
       passProps: {url}
     });
   }
@@ -63,16 +76,16 @@ class CardInfo extends React.Component{
 
     var buttons = [
       {
-        label: "Biddy Tarot",
-        url: this.props.card.biddy_link
+        label: "Learn Tarot",
+        url: this.props.card.learn_tarot_link
       },
       {
         label: "Keen Tarot",
         url: this.props.card.keen_link
       },
       {
-        label: "Learn Tarot",
-        url: this.props.card.learn_tarot_link
+        label: "Biddy Tarot",
+        url: this.props.card.biddy_link
       }
     ];
 
@@ -97,7 +110,7 @@ class CardInfo extends React.Component{
         <Text
           style={styles.description}>{this.props.card.description} </Text>
         <Text
-          style={styles.external}>External Links: </Text>
+          style={styles.external}>External Links </Text>
         {externalButtons}
       </ScrollView>
     )
